@@ -10,18 +10,6 @@
 
     <title>Einkaufsliste</title>
 
-    <script>
-        function Addliste() {
-            liste.innerHTML += <ul id="liste"> <input type="checkbox">
-                ${liste.value};
-
-
-
-            </ul>
-
-        }
-    </script>
-
 </head>
 
 <body>
@@ -33,6 +21,9 @@
 
 
         <style>
+            body {
+                font-size: 12px;
+            }
             .demo-layout-transparent .mdl-layout__header,
             .demo-layout-transparent .mdl-layout__drawer-button {
 
@@ -44,8 +35,13 @@
                 padding-left: 200px;
             }
 
-            #Liste {
+            #liste {
+                list-style: none;
                 color: aliceblue;
+            }
+
+            #liste li {
+                color: white;
             }
         </style>
 
@@ -76,19 +72,36 @@
                     <a class="mdl-navigation__link" href="">Getränke</a>
                 </nav>
             </div>
-            <form unsubmit="Addliste()">
+            <form id="formular">
                 <main class="content">
-
                     <input type="To do Einfügen" id="textfeld">
-
                     <button type="submit">Speichern</button>
-
-
+                    <ul id="liste"></ul>
                 </main>
             </form>
         </div>
 
 
+        <script>
+            function Addliste(value) {
+                var li = document.createElement('li')
+                var checkbox = document.createElement('input')
+                checkbox.setAttribute('type', 'checkbox')
+                var text = document.createTextNode(value)
+
+                li.appendChild(text)
+                li.appendChild(checkbox)
+
+                document.getElementById("liste").appendChild(li)
+            }
+
+            document.getElementById("formular").onsubmit = function (event) {
+                event.preventDefault()
+                Addliste(document.getElementById("textfeld").value)
+                document.getElementById("textfeld").value = ""
+                document.getElementById("textfeld").focus()
+            }
+        </script>
     </body>
 
 </html>
